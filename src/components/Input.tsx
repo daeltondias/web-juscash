@@ -5,7 +5,8 @@ import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Icon } from "@iconify/react";
 
-type InputProps = React.JSX.IntrinsicElements["input"] & {
+export type InputProps = React.JSX.IntrinsicElements["input"] & {
+  isRequired?: boolean;
   label?: string;
   classNames?: {
     container?: string;
@@ -17,6 +18,7 @@ type InputProps = React.JSX.IntrinsicElements["input"] & {
 
 export const Input = ({
   label,
+  isRequired,
   classNames,
   className,
   ...props
@@ -41,7 +43,9 @@ export const Input = ({
   return (
     <div className={classNames?.container}>
       {label && (
-        <div className={twMerge("label", classNames?.label)}>{label}</div>
+        <div className={twMerge("label", classNames?.label)}>
+          {label} {isRequired && <span className="text-red-500">*</span>}
+        </div>
       )}
       <div
         className={twMerge(
@@ -62,6 +66,7 @@ export const Input = ({
         />
         {isPasswordType && (
           <button
+            type="button"
             className="pressable-opacity"
             onClick={(event) => {
               event.stopPropagation();

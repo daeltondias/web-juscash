@@ -7,7 +7,9 @@ import React, { useState, useEffect, memo } from "react";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { Icon, IconifyIcon } from "@iconify/react";
+import { formatDate } from "@/utils/formatDate";
 import { timeSince } from "@/utils/timeSince";
+import { signOut } from "next-auth/react";
 import { DivProps } from "@/types/props";
 import { twMerge } from "tailwind-merge";
 import { move } from "@dnd-kit/helpers";
@@ -17,7 +19,6 @@ import {
   DragDropEvents,
   DragDropProvider,
 } from "@dnd-kit/react";
-import { formatDate } from "@/utils/formatDate";
 
 type ItemType = PublicationType & { id: UniqueIdentifier };
 
@@ -367,7 +368,10 @@ export default function PageScreen() {
             JusCash
           </span>
         </div>
-        <button className="flex-center text-secondary pressable-opacity gap-x-1.5 text-base font-medium">
+        <button
+          className="flex-center text-secondary pressable-opacity gap-x-1.5 text-base font-medium"
+          onClick={() => signOut()}
+        >
           <Icon icon="mdi:logout-variant" fontSize={24} />
           Sair
         </button>
